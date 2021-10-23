@@ -13,8 +13,6 @@ man-pages
 dash
 ntp
 cups
-curl
-zsh
 htop
 bluez
 bluez-utils
