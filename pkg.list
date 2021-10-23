@@ -83,6 +83,9 @@ lib32-pipewire
 pipewire-alsa
 pipewire-pulse
 lutris
+steam-native-runtime
 discord
 virt-manager
 virt-viewer
+vlc
+mpv

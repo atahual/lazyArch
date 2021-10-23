@@ -3,11 +3,19 @@
 # get config
 . /root/lazyArch/install.conf
 
+# Add sudo no password rights
+sed -i 's/^# %wheel ALL=(ALL) NOPASSWD: ALL/%wheel ALL=(ALL) NOPASSWD: ALL/' /etc/sudoers
+
 # configure pacman
 sed -i 's/^#Para/Para/' /etc/pacman.conf # download go zoom
 sed -i "s/^#Color/Color\nILoveCandy/" /etc/pacman.conf # lookin fancy
 sed -i "/\[multilib\]/,/Include/"'s/^#//' /etc/pacman.conf
 pacman -Sy --noconfirm
+
+# MAKEPKG conf
+nc=$(nproc)
+sudo sed -i 's/#MAKEFLAGS="-j2"/MAKEFLAGS="-j'"$nc"'"/g' /etc/makepkg.conf
+sudo sed -i 's/COMPRESSXZ=(xz -c -z -)/COMPRESSXZ=(xz -c -T '"$nc"' -z -)/g' /etc/makepkg.conf
 
 # get the last user input out of the way
 # root password
@@ -17,6 +25,8 @@ passwd
 useradd -m -G users,wheel -s /bin/zsh "$username"
 echo "Changing password for $username"
 passwd "$username"
+
+cp --recursive /root/lazyArch /home/$username
 
 # set timezone
 ln -sf /usr/share/zoneinfo/"$timezone" /etc/localtime
@@ -85,3 +95,21 @@ initrd  /$cpu-ucode.img
 initrd  /initramfs-linux-lts.img  
 options root=LABEL=ROOT rw libahci.ignore_sss=1 quiet loglevel=3 rd.systemd.show_status=auto rd.udev.log_level=3
 EOF
+
+## post base install
+
+# Graphics Drivers find and install
+if lspci | grep -E "NVIDIA|GeForce"; then
+    pacman -S nvidia-dkms nvidia-settings nvidia-utils lib32-nvidia-utils vulkan-icd-loader lib32-vulkan-icd-loader --noconfirm --needed
+elif lspci | grep -E "Radeon"; then
+    pacman -S xf86-video-amdgpu --noconfirm --needed
+elif lspci | grep -E "Integrated Graphics Controller"; then
+    pacman -S libva-intel-driver libvdpau-va-gl lib32-vulkan-intel vulkan-intel libva-intel-driver libva-utils --needed --noconfirm
+elif lspci | grep -E "VMware"; then
+    pacman -S virtualbox-guest-utils --noconfirm --needed
+    systemctl enable vboxservice.service
+fi
+
+# install defined packages
+
+pacman -S --noconfirm --needed - < /root/lazyArch/pkg.list
