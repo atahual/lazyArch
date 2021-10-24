@@ -1,5 +1,7 @@
 #!/bin/sh
 
+. /root/lazyArch/install.conf
+
 printf "\nFINAL SETUP AND CONFIGURATION\n"
 
 # ------------------------------------------------------------------------
@@ -43,7 +45,7 @@ cat > /etc/X11/xorg.conf.d/00-keyboard.conf << EOF
 Section "InputClass"
         Identifier "system-keyboard"
         MatchIsKeyboard "on"
-        Option "XkbLayout" "de"
+        Option "XkbLayout" "$xkeyboard"
         Option "XkbModel" "pc104"
 EndSection
 EOF

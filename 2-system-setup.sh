@@ -20,11 +20,14 @@ sudo sed -i 's/COMPRESSXZ=(xz -c -z -)/COMPRESSXZ=(xz -c -T '"$nc"' -z -)/g' /et
 # get the last user input out of the way
 # root password
 echo "Changing password for root"
-passwd
+#passwd
+echo "root:$pwroot" | chpasswd
+
 # create user and ask for password
 useradd -m -G users,wheel -s /bin/zsh "$username"
 echo "Changing password for $username"
-passwd "$username"
+#passwd "$username"
+echo "$username:$pwuser" | chpasswd
 
 cp --recursive /root/lazyArch /home/$username
 

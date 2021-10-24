@@ -24,10 +24,16 @@ echo "For the beginning please enter some data."
 
 printf "Hostname: "
 read -r hostname
+printf "Root Password: "
+read -r pwroot
 printf "Username: "
 read -r username
+printf "User Password: "
+read -r pwuser
 printf "Keyboard Layout: "
 read -r keyboard
+printf "Keyboard Layout (X11): "
+read -r xkeyboard
 printf "Locale: "
 read -r locale
 printf "Timezone: "
@@ -46,8 +52,11 @@ read -r DISK
 
 cat >install.conf <<EOF
 hostname=$hostname
+pwroot=$pwroot
 username=$username
+pwuser=$pwuser
 keyboard=$keyboard
+xkeyboard=$xkeyboard
 locale=$locale
 timezone=$timezone
 DISK=$DISK
