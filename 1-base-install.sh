@@ -25,6 +25,51 @@ sed -i 's/^#Para/Para/' /etc/pacman.conf # download go zoom
 if [ -f /root/lazyArch/install.conf ]
 then
     . /root/lazyArch/install.conf
+
+    echo "Please enter the data not defined in install.conf"
+
+    # get missing values
+    if [ -z "$hostname" ]
+    then
+        printf "Hostname: "
+        read -r hostname
+    fi
+if [ -z "$pwroot" ]
+    then
+        printf "Root Password: "
+        read -r pwroot
+    fi
+if [ -z "$username" ]
+    then
+        printf "Username: "
+        read -r username
+    fi
+if [ -z "$pwuser" ]
+    then
+        printf "User Password: "
+        read -r pwuser
+    fi
+if [ -z "$keyboard" ]
+    then
+        printf "Keyboard Layout: "
+        read -r keyboard
+    fi
+if [ -z "$xkeyboard" ]
+    then
+        printf "Keyboard Layout (X11): "
+        read -r xkeyboard
+    fi
+if [ -z "$locale" ]
+    then
+        printf "Locale: "
+        read -r locale
+    fi
+if [ -z "$timezone" ]
+    then
+        printf "Timezone: "
+        read -r timezone
+    fi
+
 else
     echo "For the beginning please enter some data."
 
