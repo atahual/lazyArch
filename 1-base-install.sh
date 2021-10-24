@@ -105,7 +105,6 @@ printf "DISK: "
 read -r DISK
 
 # generate install.config for later use
-
 cat >install.conf <<EOF
 hostname=$hostname
 pwroot=$pwroot
@@ -120,7 +119,11 @@ EOF
 echo "Great! We are almost ready."
 printf "Please double check if everything is correct.\n\n"
 
+printf "\n\nYou gave this information:\n\n"
+
 cat install.conf
+
+printf "\n\nAnd want to install on this disk: %s\n\n\n" "$DISK"
 
 echo "CONTINUING WILL WIPE YOUR SELECTED DRIVE!!!"
 printf "Are you sure you want to continue? (Y/N) "

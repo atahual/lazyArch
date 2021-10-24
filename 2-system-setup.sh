@@ -4,6 +4,7 @@
 . /root/lazyArch/install.conf
 
 # Add sudo no password rights
+# this is just for the installation and will be changed later in the script
 sed -i 's/^# %wheel ALL=(ALL) NOPASSWD: ALL/%wheel ALL=(ALL) NOPASSWD: ALL/' /etc/sudoers
 
 # configure pacman
@@ -17,7 +18,6 @@ nc=$(nproc)
 sudo sed -i 's/#MAKEFLAGS="-j2"/MAKEFLAGS="-j'"$nc"'"/g' /etc/makepkg.conf
 sudo sed -i 's/COMPRESSXZ=(xz -c -z -)/COMPRESSXZ=(xz -c -T '"$nc"' -z -)/g' /etc/makepkg.conf
 
-# get the last user input out of the way
 # root password
 echo "Changing password for root"
 #passwd
@@ -86,7 +86,6 @@ editor          no
 EOF
 
 # lets get some entries
-# PROC will be changed after ucode installation
 cat > /boot/loader/entries/arch.conf << EOF
 title   Arch Linux
 linux /vmlinuz-linux-zen

@@ -1,8 +1,5 @@
 #!/bin/sh
 
-printf "\nINSTALLING AUR SOFTWARE\n\n"
-
-echo "CLONING: YAY"
 cd "$HOME"
 git clone "https://aur.archlinux.org/yay.git"
 cd "$HOME"/yay
@@ -10,7 +7,6 @@ makepkg -si --noconfirm
 cd "$HOME"
 
 # Oh My zsh
-
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 
 # zsh-syntax-highlighting
@@ -33,5 +29,4 @@ if lspci | grep -E "NVIDIA|GeForce"; then
     sudo nvidia-xconfig --cool-bits=12
 fi
 
-printf "\nDone!\n\n"
 exit
