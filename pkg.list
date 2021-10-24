@@ -87,5 +87,6 @@ steam-native-runtime
 discord
 virt-manager
 virt-viewer
+edk2-ovmf
 vlc
 mpv
