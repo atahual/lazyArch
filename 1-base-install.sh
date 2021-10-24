@@ -70,7 +70,6 @@ keyboard=$keyboard
 xkeyboard=$xkeyboard
 locale=$locale
 timezone=$timezone
-DISK=$DISK
 EOF
 
 echo "Great! We are almost ready."
