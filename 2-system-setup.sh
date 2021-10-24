@@ -36,7 +36,10 @@ ln -sf /usr/share/zoneinfo/"$timezone" /etc/localtime
 hwclock --systohc
 
 # set and gen locale
-sed -i "s/^#$locale.UTF-8 UTF-8/$locale.UTF-8 UTF-8/" /etc/locale.gen
+if [ "$locale" != "en_US" ]
+then
+    sed -i "s/^#$locale.UTF-8 UTF-8/$locale.UTF-8 UTF-8/" /etc/locale.gen
+fi
 sed -i 's/^#en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen # I personally always want en_US installed
 locale-gen
 echo "LANG=$locale.UTF-8" > /etc/locale.conf

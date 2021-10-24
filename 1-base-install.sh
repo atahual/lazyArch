@@ -20,25 +20,36 @@ timedatectl set-ntp true
 sed -i 's/^#Para/Para/' /etc/pacman.conf # download go zoom
 
 # gather user input
-echo "For the beginning please enter some data."
 
-printf "Hostname: "
-read -r hostname
-printf "Root Password: "
-read -r pwroot
-printf "Username: "
-read -r username
-printf "User Password: "
-read -r pwuser
-printf "Keyboard Layout: "
-read -r keyboard
-printf "Keyboard Layout (X11): "
-read -r xkeyboard
-printf "Locale: "
-read -r locale
-printf "Timezone: "
-read -r timezone
+# load from install.conf if exists
+if [ -f /root/lazyArch/install.conf ]
+then
+    . /root/lazyArch/install.conf
+else
+    echo "For the beginning please enter some data."
 
+    # I don't always ask for the hostname because you could prepare a config
+    # including hostname without knowing the drive name
+    printf "Hostname: "
+    read -r hostname
+    printf "Root Password: "
+    read -r pwroot
+    printf "Username: "
+    read -r username
+    printf "User Password: "
+    read -r pwuser
+    printf "Keyboard Layout: "
+    read -r keyboard
+    printf "Keyboard Layout (X11): "
+    read -r xkeyboard
+    printf "Locale: "
+    read -r locale
+    printf "Timezone: "
+    read -r timezone
+fi
+
+# ALWAYS ask for drive to format
+# so configs could be portable
 printf "\nNow we need to know where to Install our fancy Arch.\n"
 echo "Here are the available block devices."
 lsblk
