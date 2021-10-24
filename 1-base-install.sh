@@ -127,4 +127,5 @@ mount -t vfat -L UEFISYS /mnt/boot/
 pacstrap /mnt base base-devel linux-zen linux-zen-headers linux-lts linux-lts-headers linux-firmware dash curl zsh nano git sudo archlinux-keyring wget libnewt --noconfirm
 genfstab -U /mnt >> /mnt/etc/fstab
 
-cp --recursive /root/lazyArch /mnt/root/
+mkdir -p /mnt/root/lazyArch/
+cp --recursive /root/lazyArch/* /mnt/root/lazyArch/
