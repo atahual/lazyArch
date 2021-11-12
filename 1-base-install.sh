@@ -34,40 +34,40 @@ then
         printf "Hostname: "
         read -r hostname
     fi
-if [ -z "$pwroot" ]
-    then
-        printf "Root Password: "
-        read -r pwroot
-    fi
-if [ -z "$username" ]
-    then
-        printf "Username: "
-        read -r username
-    fi
-if [ -z "$pwuser" ]
-    then
-        printf "User Password: "
-        read -r pwuser
-    fi
-if [ -z "$keyboard" ]
-    then
-        printf "Keyboard Layout: "
-        read -r keyboard
-    fi
-if [ -z "$xkeyboard" ]
-    then
-        printf "Keyboard Layout (X11): "
-        read -r xkeyboard
-    fi
-if [ -z "$locale" ]
-    then
-        printf "Locale: "
-        read -r locale
-    fi
-if [ -z "$timezone" ]
-    then
-        printf "Timezone: "
-        read -r timezone
+    if [ -z "$pwroot" ]
+        then
+            printf "Root Password: "
+            read -r pwroot
+        fi
+    if [ -z "$username" ]
+        then
+            printf "Username: "
+            read -r username
+        fi
+    if [ -z "$pwuser" ]
+        then
+            printf "User Password: "
+            read -r pwuser
+        fi
+    if [ -z "$keyboard" ]
+        then
+            printf "Keyboard Layout: "
+            read -r keyboard
+        fi
+    if [ -z "$xkeyboard" ]
+        then
+            printf "Keyboard Layout (X11): "
+            read -r xkeyboard
+        fi
+    if [ -z "$locale" ]
+        then
+            printf "Locale: "
+            read -r locale
+        fi
+    if [ -z "$timezone" ]
+        then
+            printf "Timezone: "
+            read -r timezone
     fi
 
 else
@@ -104,6 +104,26 @@ echo "IMPORTANT: please don't screw this up!"
 printf "DISK: "
 read -r DISK
 
+if [ -z "$desktop" ]
+    then
+    # ask for Desktop environment
+    printf "\nChoose your Desktop Environment.\n"
+    printf "0* - None (Xorg will still be installed)\n"
+    printf "1  - Plasma\n"
+    # TODO: add GNOME and some Tiling Window Manager
+    printf "\nChoose: "
+    read -r dechoice
+
+    case $dechoice in
+        1)
+            desktop="plasma"
+            ;;
+        *)
+            desktop="none"
+            ;;
+    esac
+fi
+
 # generate install.config for later use
 cat >install.conf <<EOF
 hostname=$hostname
@@ -114,6 +134,7 @@ keyboard=$keyboard
 xkeyboard=$xkeyboard
 locale=$locale
 timezone=$timezone
+desktop=$desktop
 EOF
 
 echo "Great! We are almost ready."
@@ -162,6 +183,10 @@ case $formatdisk in
                 ;;
         esac
         ;;
+    *)
+        touch abort.install
+        exit
+        ;;
 esac
 
 # mount target
@@ -171,7 +196,7 @@ mount -t vfat -L UEFISYS /mnt/boot/
 
 # base install
 #pacstrap /mnt "$(awk '{print $1}' "$(pwd)"/base.list)" --noconfirm
-pacstrap /mnt base base-devel linux-zen linux-zen-headers linux-lts linux-lts-headers linux-firmware dash curl zsh nano git sudo archlinux-keyring wget libnewt --noconfirm
+pacstrap /mnt base base-devel linux-zen linux-zen-headers linux-lts linux-lts-headers linux-firmware archlinux-keyring --noconfirm
 genfstab -U /mnt >> /mnt/etc/fstab
 
 mkdir -p /mnt/root/lazyArch/

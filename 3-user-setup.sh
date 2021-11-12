@@ -1,32 +1,26 @@
 #!/bin/sh
 
+# install AUR helper
 cd "$HOME"
 git clone "https://aur.archlinux.org/yay.git"
 cd "$HOME"/yay
 makepkg -si --noconfirm
 cd "$HOME"
 
-# Oh My zsh
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 
-# zsh-syntax-highlighting
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "$HOME"/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
-# zsh-autosuggestions
-git clone https://github.com/zsh-users/zsh-autosuggestions "$HOME"/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+# install "essential" aur packages
+yay -S --noconfirm - < "$HOME"/lazyArch/aurlists/base.list
 
-# set zsh theme and plugins
-sed -i "s/robbyrussell/avit/g" .zshrc
-sed -i "s/plugins=(git)/plugins=(git zsh-syntax-highlighting zsh-autosuggestions)/g" .zshrc
+# install custom aur packages
+for aurlist in "$HOME"/lazyArch/aurlists/custom/*
+do
+    yay -S --noconfirm - < "$aurlist"
+done
 
-yay -S --noconfirm - < "$HOME"/lazyArch/aur.list
-
-# xow for Xbox wireless adapter
-sudo systemctl enable xow.service
-
-# if nvidia, install GreenWithEnvy and enable overclocking
-if lspci | grep -E "NVIDIA|GeForce"; then
-    yay -S --noconfirm gwe
-    sudo nvidia-xconfig --cool-bits=12
-fi
+#run custom scripts
+for customscript in "$HOME"/lazyArch/scripts/custom/*
+do
+    sh "$customscript"
+done
 
 exit

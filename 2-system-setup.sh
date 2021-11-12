@@ -43,6 +43,7 @@ then
 fi
 sed -i 's/^#en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen # I personally always want en_US installed
 locale-gen
+## TODO: fix locae.conf according to ChrisTitusTech's repo about this topic
 echo "LANG=$locale.UTF-8" > /etc/locale.conf
 echo "KEYMAP=$keyboard" > /etc/vconsole.conf
 
@@ -116,6 +117,49 @@ elif lspci | grep -E "VGA|3D" | grep -E "VMware"; then
     systemctl enable vboxservice.service
 fi
 
-# install defined packages
+## install packages by category
 
-pacman -S --noconfirm --needed - < /root/lazyArch/pkg.list
+# base packages
+pacman -S --noconfirm --needed - < /root/lazyArch/pkglists/base.list
+# xorg packages
+pacman -S --noconfirm --needed - < /root/lazyArch/pkglists/xorg.list
+# desktop packages
+case $desktop in
+    "plasma") # plasma
+        pacman -S --noconfirm --needed - < /root/lazyArch/pkglists/plasma.list
+        ;;
+    *)
+        # by default do nothing
+        ;;
+
+esac
+# custom packages
+for pkglist in /root/lazyArch/pkglists/custom/*
+do
+    pacman -S --noconfirm --needed - < "$pkglist"
+done
+
+## do some needed configuration
+
+# set keyboard layout for Xserver
+cat > /etc/X11/xorg.conf.d/00-keyboard.conf << EOF
+Section "InputClass"
+        Identifier "system-keyboard"
+        MatchIsKeyboard "on"
+        Option "XkbLayout" "$xkeyboard"
+        Option "XkbModel" "pc104"
+EndSection
+EOF
+
+# enable bluetooth, printing and network time services
+sed -i 's|#AutoEnable=false|AutoEnable=true|g' /etc/bluetooth/main.conf
+systemctl enable bluetooth.service
+systemctl enable cups.service
+ntpd -qg
+systemctl enable ntpd.service
+
+case $desktop in
+    "plasma") # plasma
+        sh /root/lazyArch/scripts/plasma.sh
+        ;;
+esac
