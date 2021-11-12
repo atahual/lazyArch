@@ -1,12 +1,7 @@
 - [lazyArch](#lazyarch)
 - [Usage](#usage)
 - [Customizing](#customizing)
-    - [1-base-install.sh](#1-base-installsh)
-    - [2-system-setup.sh](#2-system-setupsh)
-    - [pkg.list](#pkglist)
-    - [3-user-setup.sh](#3-user-setupsh)
-    - [aur.list](#aurlist)
-    - [4-post-setup.sh](#4-post-setupsh)
+- [Contributing](#contributing)
 
 # lazyArch
 Arch for lazy people (like me)
@@ -21,16 +16,7 @@ So no fancy menu sorry.
 
 You need know what values the script is asking for and there are no defaults or hints on what to type. (other than the install.example.conf maybe)
 
-Although everyone can run this you will end up with a System how I personally like it.
-
-Including but not limited to following Features:
-
-* KDE Desktop
-* zsh Shell
-* oh my zsh with some plugins
-* Gaming ready (Steam, Lutris, and more)
-
-So it is best used by foking the Project and personalizing it.
+I try to be very modular and allow for easy customization and there are some examples on how those customization are done.
 
 # Usage
 
@@ -53,24 +39,19 @@ You can *and should* customize the scipt to your liking so here are some on wher
 **Make sure you save your files with _Line Feed_ only or the install will fail!**
 **VS Code will show this in the bottom right corner as _LF_ (correct) or _CRLF_ (wich is Carriage Return + Line Feed and incorrect)**
 
-### 1-base-install.sh
-At the bottom of this file you can change your partitioning and what kernel you want to install
+In my new version you no longer have to touch the original files unless you want to use another kernel or custom partitions.
 
-### 2-system-setup.sh
-**This gets executed in `chroot` as user root.**
-Most things in here are done automatically but you can search for this `# configure bootloader` to configure your bootloader and entries. If you change the kernel you will have to change the entries.
+You can easily specify your pacman packages by putting a file containing the package names in ```pkglists/custom/```
+I have some of my files in there to show you how you can use this.
 
-### pkg.list
-This file is used in the previous script and is just a list of all packages that will be install from the Arch Repositories.
+Similarly for packages from the AUR you put the files into ```aurlists/custom/```
 
-### 3-user-setup.sh
-**This gets executed in `chroot` as your defined User**
-The only "automatic" thing done here is installing Packages from the AUR.
-If you don't want anything from the AUR remove `yay -S --noconfirm - < "$HOME"/lazyArch/aur.list`
-Everything else is what I want for my User so go ahead and do what you want in here.
+If any installed package or for your own configuration you need to run a script you can put it in ```scripts/custom```
+These scripts will be run as your user so if you need root privileges run the command with sudo, during the installation it will not ask for a password to make it easy to use in a script. That will be changed at the end of the installation.
 
-### aur.list
-This is the list of Packages installed from the Arch User Repository.
+After the installation is finished and you rebooted this repository will be in your home directory containing a ```install.conf``` file of your installation.
 
-### 4-post-setup.sh
-This will enable  Services if you installed some Packages that need that and do some final configuration.
+# Contributing
+
+If you want a feature you can always ask for it or do it yourself and create a pull request
+and if you find a bug open an issue with as much detail as you can give so I can reproduce it.
