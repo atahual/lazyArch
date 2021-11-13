@@ -44,8 +44,8 @@ then
 fi
 sed -i 's/^#en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen # I personally always want en_US installed
 locale-gen
-## TODO: fix locae.conf according to ChrisTitusTech's repo about this topic
 echo "LANG=$locale.UTF-8" > /etc/locale.conf
+echo "LANGUAGE=$locale:en_US" >> /etc/locale.conf
 echo "KEYMAP=$keyboard" > /etc/vconsole.conf
 
 # set hostname
