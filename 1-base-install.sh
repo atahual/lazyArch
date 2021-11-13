@@ -110,13 +110,16 @@ if [ -z "$desktop" ]
     printf "\nChoose your Desktop Environment.\n"
     printf "0* - None (Xorg will still be installed)\n"
     printf "1  - Plasma\n"
-    # TODO: add GNOME and some Tiling Window Manager
+    printf "2  - Gnome\n"
     printf "\nChoose: "
     read -r dechoice
 
     case $dechoice in
         1)
             desktop="plasma"
+            ;;
+        2)
+            desktop="gnome"
             ;;
         *)
             desktop="none"

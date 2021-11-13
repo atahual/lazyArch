@@ -18,6 +18,14 @@ You need know what values the script is asking for and there are no defaults or 
 
 I try to be very modular and allow for easy customization and there are some examples on how those customization are done.
 
+The script will install a Desktop Environment for you but those will not be configured in any way.
+The choices currently available are:
+ - KDE Plasma
+ - Gnome
+ - None
+
+If choosing none xorg will still be installed and you can install anything you want after the installation is complete or use a custom script during installation.
+
 # Usage
 
 All you need to do is boot your Arch iso, install git, clone the project and run install.sh
@@ -31,6 +39,20 @@ cd lazyArch
 
 That's basically it.
 Easy right? And perfect for lazy people like us :D
+
+If you want to save different configurations with customizations you might want package it in a zip or tar.gz on your local (or remote) http server and install it from there.
+
+I personally use a zip like this:
+
+```shell
+pacman -Sy wget unzip
+mkdir lazyArch
+cd lazyArch
+wget https://example.com/lazyArch.zip
+unzip lazyArch.zip
+chmod +x *.sh
+./install.sh
+```
 
 # Customizing
 
@@ -48,6 +70,7 @@ Similarly for packages from the AUR you put the files into ```aurlists/custom/``
 
 If any installed package or for your own configuration you need to run a script you can put it in ```scripts/custom```
 These scripts will be run as your user so if you need root privileges run the command with sudo, during the installation it will not ask for a password to make it easy to use in a script. That will be changed at the end of the installation.
+If you want to use a variable defined at the beginning of the installation (eg. username or desktop) you can source ```install.conf```.
 
 After the installation is finished and you rebooted this repository will be in your home directory containing a ```install.conf``` file of your installation.
 

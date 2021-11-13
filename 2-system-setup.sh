@@ -31,6 +31,7 @@ echo "$username:$pwuser" | chpasswd
 
 mkdir -p /home/$username/lazyArch/
 cp --recursive /root/lazyArch/* /home/$username/lazyArch/
+chown "$username":"$username" --recursive /home/$username/lazyArch/
 
 # set timezone
 ln -sf /usr/share/zoneinfo/"$timezone" /etc/localtime
@@ -128,6 +129,9 @@ case $desktop in
     "plasma") # plasma
         pacman -S --noconfirm --needed - < /root/lazyArch/pkglists/plasma.list
         ;;
+    "gnome") # gnome
+        pacman -S --noconfirm --needed - < /root/lazyArch/pkglists/gnome.list
+        ;;
     *)
         # by default do nothing
         ;;
@@ -161,5 +165,8 @@ systemctl enable ntpd.service
 case $desktop in
     "plasma") # plasma
         sh /root/lazyArch/scripts/plasma.sh
+        ;;
+    "gnome") # gnome
+        sh /root/lazyArch/scripts/gnome.sh
         ;;
 esac

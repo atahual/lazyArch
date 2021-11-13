@@ -6,6 +6,7 @@ git clone "https://aur.archlinux.org/yay.git"
 cd "$HOME"/yay
 makepkg -si --noconfirm
 cd "$HOME"
+em -rf "$HOME"/yay
 
 
 # install "essential" aur packages
