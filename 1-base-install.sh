@@ -111,6 +111,7 @@ if [ -z "$desktop" ]
     printf "0* - None (Xorg will still be installed)\n"
     printf "1  - Plasma\n"
     printf "2  - Gnome\n"
+    printf "3  - Mate\n"
     printf "\nChoose: "
     read -r dechoice
 
@@ -120,6 +121,9 @@ if [ -z "$desktop" ]
             ;;
         2)
             desktop="gnome"
+            ;;
+        3)
+            desktop="mate"
             ;;
         *)
             desktop="none"

@@ -132,6 +132,9 @@ case $desktop in
     "gnome") # gnome
         pacman -S --noconfirm --needed - < /root/lazyArch/pkglists/gnome.list
         ;;
+    "mate") # mate
+        pacman -S --noconfirm --needed - < /root/lazyArch/pkglists/mate.list
+        ;;
     *)
         # by default do nothing
         ;;
@@ -168,5 +171,8 @@ case $desktop in
         ;;
     "gnome") # gnome
         sh /root/lazyArch/scripts/gnome.sh
+        ;;
+    "mate") # mate
+        sh /root/lazyArch/scripts/mate.sh
         ;;
 esac
