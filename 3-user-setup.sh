@@ -15,8 +15,11 @@ rm -rf "$HOME"/yay
 yay -S --noconfirm - < "$HOME"/lazyArch/aurlists/base.list
 
 case $desktop in
+    "plasma") # plasma
+        yay -S --noconfirm kde-cdemu-manager
+        ;;
     "gnome") # gnome
-        yay -S --noconfirm chrome-gnome-shell
+        yay -S --noconfirm chrome-gnome-shell gcdemu
         ;;
 esac
 
