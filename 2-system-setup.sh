@@ -165,6 +165,9 @@ systemctl enable cups.service
 ntpd -qg
 systemctl enable ntpd.service
 
+# enable vhba kernel module
+modprobe -a sg sr_mod vhba
+
 case $desktop in
     "plasma") # plasma
         sh /root/lazyArch/scripts/plasma.sh

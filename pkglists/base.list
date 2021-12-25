@@ -27,3 +27,5 @@ pipewire
 lib32-pipewire
 pipewire-alsa
 pipewire-pulse
+cdemu-client
+vhba-module-dkms
