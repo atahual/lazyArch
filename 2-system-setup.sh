@@ -5,7 +5,7 @@
 
 # Add sudo no password rights
 # this is just for the installation and will be changed later in the script
-sed -i 's/^# %wheel ALL=(ALL) NOPASSWD: ALL/%wheel ALL=(ALL) NOPASSWD: ALL/' /etc/sudoers
+sed -i 's/^# %wheel ALL=(ALL:ALL) NOPASSWD: ALL/%wheel ALL=(ALL:ALL) NOPASSWD: ALL/' /etc/sudoers
 
 # configure pacman
 sed -i 's/^#Para/Para/' /etc/pacman.conf # download go zoom
