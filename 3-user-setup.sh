@@ -21,6 +21,9 @@ case $desktop in
     "gnome") # gnome
         yay -S --noconfirm chrome-gnome-shell gcdemu
         ;;
+    "mate") # mate
+        yay -S --noconfirm gcdemu
+        ;;
 esac
 
 # install custom aur packages
