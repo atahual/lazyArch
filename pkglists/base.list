@@ -29,3 +29,4 @@ pipewire-alsa
 pipewire-pulse
 cdemu-client
 vhba-module-dkms
+ripgrep
