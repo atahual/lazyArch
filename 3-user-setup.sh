@@ -19,7 +19,7 @@ case $desktop in
         yay -S --noconfirm kde-cdemu-manager
         ;;
     "gnome") # gnome
-        yay -S --noconfirm chrome-gnome-shell gcdemu
+        yay -S --noconfirm gnome-browser-connector gcdemu
         ;;
     "mate") # mate
         yay -S --noconfirm gcdemu
