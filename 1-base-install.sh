@@ -203,7 +203,7 @@ mount -t vfat -L UEFISYS /mnt/boot/
 
 # base install
 #pacstrap /mnt "$(awk '{print $1}' "$(pwd)"/base.list)" --noconfirm
-pacstrap /mnt base base-devel linux-zen linux-zen-headers linux-lts linux-lts-headers linux-firmware archlinux-keyring --noconfirm
+pacstrap /mnt base base-devel linux linux-headers linux-lts linux-lts-headers linux-firmware archlinux-keyring --noconfirm
 genfstab -U /mnt >> /mnt/etc/fstab
 
 mkdir -p /mnt/root/lazyArch/

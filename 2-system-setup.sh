@@ -90,9 +90,9 @@ EOF
 # lets get some entries
 cat > /boot/loader/entries/arch.conf << EOF
 title   Arch Linux
-linux /vmlinuz-linux-zen
+linux /vmlinuz-linux
 initrd  /$cpu-ucode.img
-initrd  /initramfs-linux-zen.img  
+initrd  /initramfs-linux.img  
 options root=LABEL=ROOT rw libahci.ignore_sss=1 quiet loglevel=3 rd.systemd.show_status=auto rd.udev.log_level=3
 EOF
 
