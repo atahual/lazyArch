@@ -2,6 +2,7 @@ dxvk-bin
 vkbasalt
 reshade-shaders-git
 mangohud
+lib32-mangohud
 mangohud-common
 goverlay
 xow-git
