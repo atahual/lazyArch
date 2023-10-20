@@ -1,6 +1,7 @@
 xdg-desktop-portal-kde
 sddm
 plasma
+plasma-wayland-session
 kde-system-meta
 kde-utilities-meta
 kde-gtk-config
