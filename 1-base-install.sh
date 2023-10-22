@@ -180,7 +180,7 @@ case $formatdisk in
         printf "\nCreating Filesystems...\n\n"
 
         case $DISK in
-            nvme*)
+            /dev/nvme*)
                 mkfs.vfat -F32 -n "UEFISYS" "${DISK}p1"
                 mkfs.ext4 -L "ROOT" "${DISK}p2"
                 ;;
